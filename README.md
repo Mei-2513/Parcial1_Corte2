@@ -62,7 +62,7 @@ Usamos un **exchange tipo `fanout`** para notificar cuando se ha procesado una i
 
 3. Abre la API en:  
     [http://localhost:8000/docs](http://localhost:8000/docs)  
-    y prueba subiendo una imagen desde el endpoint `/upload`.
+    y prueba subiendo una imagen desde el endpoint `/upload`. las imagenes se estan guardando en Parcial1/app/api_imagenes/images
 
 ---
 
