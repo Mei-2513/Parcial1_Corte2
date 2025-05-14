@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+  api:
+    build:
+      context: ./api_imagenes
+    command: uvicorn main:app --host 0.0.0.0 --port 8000
+    volumes:
+      - ./api_imagenes:/app
+      - ./processed_images:/processed_images
+    ports:
+      - "8000:8000"
+    depends_on:
+      - rabbitmq
+
+  worker:
+    build:
+      context: ./api_imagenes
+    command: python worker.py
+    volumes:
+      - ./api_imagenes:/app
+      - ./processed_images:/processed_images
+    depends_on:
+      - rabbitmq
+
